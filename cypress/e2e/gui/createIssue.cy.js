@@ -8,8 +8,8 @@ describe('Create Issue', options, () => {
     title: `issue-${faker.datatype.uuid()}`,
     description: faker.random.words(3),
     project: {
-                name: `project-${faker.datatype.uuid()}`,
-                description: faker.random.words(5)
+      name: `project-${faker.datatype.uuid()}`,
+      description: faker.random.words(5)
     }
   }
 
