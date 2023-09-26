@@ -21,9 +21,9 @@ describe('Set label on issue', options, () => {
     cy.api_deleteProjects()       
     cy.login() 
     cy.api_createIssue(issue)
-    .then(response => {
-      cy.api_createLabel(response.body.project_id, label)
-      cy.visit(`${Cypress.env('user_name')}/${issue.project.name}/issues/${response.body.iid}`)
+      .then(response => {
+        cy.api_createLabel(response.body.project_id, label)
+        cy.visit(`${Cypress.env('user_name')}/${issue.project.name}/issues/${response.body.iid}`)
     })       
   })
 

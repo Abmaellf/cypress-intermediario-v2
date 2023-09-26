@@ -1,6 +1,7 @@
 
 const accessToken = `Bearer ${Cypress.env('gitlab_access_token')}`
 
+/*=========== Command para o Login ========== */
 Cypress.Commands.add('api_createProject', project => {
   cy.request({
     method: 'POST',
@@ -14,6 +15,7 @@ Cypress.Commands.add('api_createProject', project => {
   })
 })
 
+/*=========== Command para buscar todos os projetos ========== */
 Cypress.Commands.add('api_getAllProjects', () => {
   cy.request({
     method: 'GET',
@@ -22,6 +24,7 @@ Cypress.Commands.add('api_getAllProjects', () => {
   })
 })
 
+/*=========== Command para deletar todos os projetos ========== */
 Cypress.Commands.add('api_deleteProjects', () => {
   cy.api_getAllProjects().then(res =>
     res.body.forEach(project => cy.request({
@@ -32,7 +35,7 @@ Cypress.Commands.add('api_deleteProjects', () => {
   )
 })
 
-
+/*=========== Command para criar uma Issue via API ========== */
 Cypress.Commands.add('api_createIssue', issue => {
   cy.api_createProject(issue.project)
     .then(response => {
@@ -46,17 +49,30 @@ Cypress.Commands.add('api_createIssue', issue => {
         headers: { Authorization: accessToken },
       })
     })
+})
 
-    Cypress.Commands.add('api_createLabel', (projectId, label) => {
-      cy.request({
-        method: 'POST',
-        url: `/api/v4/projects/${projectId}/labels`,
-        body: {
-          name: label.name,
-          color: label.color
-        },
-        headers: { Authorization: accessToken },
-      })
-    })
-    
+/*=========== Command para criar uma Label via API ========== */
+Cypress.Commands.add('api_createLabel', (projectId, label) => {
+  cy.request({
+    method: 'POST',
+    url: `/api/v4/projects/${projectId}/labels`,
+    body: {
+      name: label.name,
+      color: label.color
+    },
+    headers: { Authorization: accessToken },
+  })
+})
+
+/*=========== Command para criar uma milestone via API ========== */
+Cypress.Commands.add('api_createMilestone', (projectId, milestone) => {
+  cy.request({
+    method: 'POST',
+    url:`/api/v4/projects/${projectId}/milestones`,
+    body: {
+      title: milestone.title
+    },
+    headers: { Authorization: accessToken },
+  })
+
 })

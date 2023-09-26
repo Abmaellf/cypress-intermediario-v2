@@ -1,3 +1,5 @@
+
+/*=========== Command para o Login ========== */
 Cypress.Commands.add('login', (
     user = Cypress.env('user_name'),
     password = Cypress.env('user_password'),
@@ -29,20 +31,25 @@ Cypress.Commands.add('login', (
     }
 })
 
+
+/*=========== Command para o Logout ========== */
 Cypress.Commands.add('logout', () => {
-    cy.get('.qa-user-avatar').click()
-    cy.contains('Sign out').click()
+  cy.get('.qa-user-avatar').click()
+  cy.contains('Sign out').click()
 })
 
+/*=========== Command para a criação de um projeto ========== */
 Cypress.Commands.add('gui_createProject', project => {
-    cy.visit('/projects/new')
+  cy.visit('/projects/new')
 
-    cy.get('#project_name').type(project.name)
-    cy.get('#project_description').type(project.description)
-    cy.get('.qa-initialize-with-readme-checkbox').check()
-    cy.contains('Create project').click()
+  cy.get('#project_name').type(project.name)
+  cy.get('#project_description').type(project.description)
+  cy.get('.qa-initialize-with-readme-checkbox').check()
+  cy.contains('Create project').click()
 })
 
+
+/*=========== Command para criar uma Issue ========== */
 Cypress.Commands.add('gui_createIssue', issue => {
   cy.visit(`/${Cypress.env('user_name')}/${issue.project.name}/issues/new`)
 
@@ -51,8 +58,16 @@ Cypress.Commands.add('gui_createIssue', issue => {
   cy.contains('Submit issue').click()
 })
 
+/*=========== Command para adição de uma Label em um Issue ========== */
 Cypress.Commands.add('gui_setLabelOnIssue', label => {
   cy.get('.qa-edit-link-labels').click()
   cy.contains(label.name).click()
   cy.get('body').click()
+})
+
+/*=========== Command para adição de uma milestone em um Issue ========== */
+Cypress.Commands.add('gui_setMilestoneOnIssue', milestone => {
+  cy.get('.block.milestone .edit-link').click()
+  cy.contains(milestone.title).click()
+ 
 })
