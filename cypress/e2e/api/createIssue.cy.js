@@ -24,7 +24,4 @@ describe('Create Issue', () => {
             })
 
     })
-
-
-
 })
